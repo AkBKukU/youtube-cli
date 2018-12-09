@@ -1,0 +1,194 @@
+#!/usr/bin/python
+
+
+class VideoData(object):
+
+    percent_confidence_limit = 25
+
+    def __init__(self):
+        # Standard Data
+        self._video_id = None
+        self._title = None
+        self._description = None
+        self._published = None
+        self._privacyStatus= None
+        self._tags= None
+        self._categoryId= None
+
+        # Metrics
+        self._date_start = None
+        self._date_end = None
+        self._views = None
+        self._monetizedPlaybacks = None
+        self._estimatedRevenue = None
+        self._estimatedMinutesWatched = None
+        self._percent = None
+        self._percent_confidence = None
+
+	# Privacy settings for uploaded video
+	self.privacy_options = [
+	    ("public", "Public", "Everyone can see the video"),
+	    ("private", "Private", "Only you can see the video"),
+	    ("unlisted", "Unlisted", "Anyone can see the video with the link"),
+	] 
+
+	self.category_options = [
+	    ( 2 ,"Cars & Vehicles"),
+	    ( 23 ,"Comedy"),
+	    ( 27 ,"Education"),
+	    ( 24 ,"Entertainment"),
+	    ( 1 ,"Film & Animation"),
+	    ( 20 ,"Gaming"),
+	    ( 26 ,"How-to & Style"),
+	    ( 10 ,"Music"),
+	    ( 25 ,"News & Politics"),
+	    ( 29 ,"Non-profits & Activism"),
+	    ( 22 ,"People & Blogs"),
+	    ( 15 ,"Pets & Animals"),
+	    ( 28 ,"Science & Technology"),
+	    ( 17 ,"Sport"),
+	    ( 19 ,"Travel & Events"),
+	]
+
+    @property
+    def id(self):
+        return self._video_id
+
+    @id.setter
+    def id(self, value):
+        self._video_id = value
+
+    @property
+    def title(self):
+        return self._title
+
+    @title.setter
+    def title(self, value):
+        self._title = value
+
+    @property
+    def description(self):
+        return self._description
+
+    @description.setter
+    def description(self, value):
+        self._descrioption = value
+
+    @property
+    def published(self):
+        return self._published
+
+    @published.setter
+    def published(self, value):
+        self._published = value
+
+    @property
+    def privacyStatus(self):
+        return self._privacyStatus
+
+    @privacyStatus.setter
+    def privacyStatus(self, value):
+	found=False
+	for status in self.privacy_options:
+	    if status[0] == value:
+		found = True
+		break
+	    
+	if not found:
+	    raise ValueError('Invalid privacy status', value)
+        self._privacyStatus= value
+
+    @property
+    def tags(self):
+        return self._tags
+
+    @tags.setter
+    def tags(self, value):
+        self._tags = value
+
+    @property
+    def categoryId(self):
+        return self._categoryId
+
+    @categoryId.setter
+    def categoryId(self, value):
+	found=False
+	for cat in self.category_options:
+	    if cat[0] == value:
+		found = True
+		break
+	    
+	if not found:
+	    raise ValueError('Invalid category ID', value)
+        self._categoryId= value
+
+
+
+    @property
+    def date_start(self):
+        return self._date_start
+
+    @date_start.setter
+    def date_start(self, value):
+        self._date_start = value
+
+    @property
+    def date_end(self):
+        return self._date_end
+
+    @date_end.setter
+    def date_end(self, value):
+        self._date_end = value
+
+    @property
+    def views(self):
+        return self._views
+
+    @views.setter
+    def views(self, value):
+        self._views = value
+
+    @property
+    def monetizedPlaybacks(self):
+        return self._monetizedPlaybacks
+
+    @monetizedPlaybacks.setter
+    def monetizedPlaybacks(self, value):
+        self._monetizedPlaybacks = value
+
+    @property
+    def estimatedRevenue(self):
+        return self._estimatedRevenue
+
+    @estimatedRevenue.setter
+    def estimatedRevenue(self, value):
+        self._estimatedRevenue = value
+
+    @property
+    def estimatedMinutesWatched(self):
+        return self._estimatedMinutesWatched
+
+    @estimatedMinutesWatched.setter
+    def estimatedMinutesWatched(self, value):
+        self._estimatedMinutesWatched = value
+
+    @property
+    def percent(self):
+        if self._percent is None and self.views > 0:
+            self._percent = self._monetizedPlaybacks / self._views
+            self._percent_confidence = self._views / \
+                self.percent_confidence_limit
+        else:
+            self._percent = 0
+            self._percent_confidence = 0
+        return self._percent
+
+    @percent.setter
+    def percent(self, value):
+        return self._percent
+
+    @property
+    def percent_confidence(self):
+        return self._percent_confidence
+
+
