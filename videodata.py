@@ -15,6 +15,10 @@ class VideoData(object):
         self._tags= None
         self._categoryId= None
 
+        # Local Data
+        self._file_path= None
+        self._body= None
+
         # Metrics
         self._date_start = None
         self._date_end = None
@@ -25,30 +29,30 @@ class VideoData(object):
         self._percent = None
         self._percent_confidence = None
 
-	# Privacy settings for uploaded video
-	self.privacy_options = [
-	    ("public", "Public", "Everyone can see the video"),
-	    ("private", "Private", "Only you can see the video"),
-	    ("unlisted", "Unlisted", "Anyone can see the video with the link"),
-	] 
+        # Privacy settings for uploaded video
+        self.privacy_options = [
+            ("public", "Everyone can see the video"),
+            ("private", "Only you can see the video"),
+            ("unlisted", "Anyone can see the video with the link"),
+        ]
 
-	self.category_options = [
-	    ( 2 ,"Cars & Vehicles"),
-	    ( 23 ,"Comedy"),
-	    ( 27 ,"Education"),
-	    ( 24 ,"Entertainment"),
-	    ( 1 ,"Film & Animation"),
-	    ( 20 ,"Gaming"),
-	    ( 26 ,"How-to & Style"),
-	    ( 10 ,"Music"),
-	    ( 25 ,"News & Politics"),
-	    ( 29 ,"Non-profits & Activism"),
-	    ( 22 ,"People & Blogs"),
-	    ( 15 ,"Pets & Animals"),
-	    ( 28 ,"Science & Technology"),
-	    ( 17 ,"Sport"),
-	    ( 19 ,"Travel & Events"),
-	]
+        self.category_options = [
+            ( 2 ,"Cars & Vehicles"),
+            ( 23 ,"Comedy"),
+            ( 27 ,"Education"),
+            ( 24 ,"Entertainment"),
+            ( 1 ,"Film & Animation"),
+            ( 20 ,"Gaming"),
+            ( 26 ,"How-to & Style"),
+            ( 10 ,"Music"),
+            ( 25 ,"News & Politics"),
+            ( 29 ,"Non-profits & Activism"),
+            ( 22 ,"People & Blogs"),
+            ( 15 ,"Pets & Animals"),
+            ( 28 ,"Science & Technology"),
+            ( 17 ,"Sport"),
+            ( 19 ,"Travel & Events"),
+        ]
 
     @property
     def id(self):
@@ -88,14 +92,14 @@ class VideoData(object):
 
     @privacyStatus.setter
     def privacyStatus(self, value):
-	found=False
-	for status in self.privacy_options:
-	    if status[0] == value:
-		found = True
-		break
-	    
-	if not found:
-	    raise ValueError('Invalid privacy status', value)
+        found=False
+        for status in self.privacy_options:
+            if status[0] == value:
+                found = True
+                break
+
+        if not found:
+            raise ValueError('Invalid privacy status', value)
         self._privacyStatus= value
 
     @property
@@ -112,16 +116,46 @@ class VideoData(object):
 
     @categoryId.setter
     def categoryId(self, value):
-	found=False
-	for cat in self.category_options:
-	    if cat[0] == value:
-		found = True
-		break
-	    
-	if not found:
-	    raise ValueError('Invalid category ID', value)
+        found=False
+        for cat in self.category_options:
+            if cat[0] == value:
+                found = True
+                break
+
+        if not found:
+            raise ValueError('Invalid category ID', value)
         self._categoryId= value
 
+
+
+    @property
+    def file_path(self):
+        return self._file_path
+
+    @file_path.setter
+    def file_path(self, value):
+        # File not found check will raise FileNotFoundError
+        f = open(value)
+        f.close()
+        self._file_path = value
+
+    @property
+    def body(self):
+        return dict(
+            snippet=dict(
+                title=self.title,
+                description=self.description,
+                tags=self.tags,
+                categoryId=self.tags
+            ),
+            status=dict(
+            privacyStatus=self.privacyStatus
+            )
+        )
+
+    @body.setter
+    def body(self, value):
+        raise ValueError('Read only', value)
 
 
     @property

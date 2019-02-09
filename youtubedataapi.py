@@ -2,10 +2,12 @@
 
 from googleapi import GoogleAPIBase
 from videodata import VideoData
+from rupload import ReumableUpload
 
 from datetime import *
 import math
 
+from apiclient.http import MediaFileUpload
 
 class YTData(GoogleAPIBase):
 
@@ -14,7 +16,9 @@ class YTData(GoogleAPIBase):
     def __init__(self):
         self.set_api("youtube", "v3")
         self.add_scope("https://www.googleapis.com/auth/youtube.force-ssl")
+        self.add_scope("https://www.googleapis.com/auth/youtube.upload")
         self.add_scope("https://www.googleapis.com/auth/youtube.readonly")
+        self.add_scope("https://www.googleapis.com/auth/youtubepartner")
 
     def set_channel_id(self, channel_id):
         self.channel_id = channel_id
@@ -63,5 +67,20 @@ class YTData(GoogleAPIBase):
                     + "Z"
 
         return videos
+
+    def video_upload(self,video):
+        print("Uploading: " + video.file_path)
+        insert_request = self.service.videos().insert(
+            part=",".join(list(video.body.keys())),
+            body=video.body,
+            media_body=MediaFileUpload(
+                video.file_path,
+                chunksize=4*1024*1024,
+                resumable=True
+            )
+        )
+        rupload = ReumableUpload()
+        rupload.upload_video(video,insert_request)
+
 
 
