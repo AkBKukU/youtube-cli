@@ -35,5 +35,7 @@ ytd.connect()
 yta.connect()
 
 # Get all videos
-ytd.video_upload(video)
+#ytd.video_upload(video)
+
+print(str(video))
 

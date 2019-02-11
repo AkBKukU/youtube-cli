@@ -84,6 +84,7 @@ class ReumableUpload():
         # Check for successful upload
         if 'id' in response:
             self.print_progress("video" , 1)
+            video.video_id=response['id']
             return response['id']
         else:
             print()

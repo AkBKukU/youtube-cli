@@ -28,6 +28,8 @@ class VideoData(object):
         self._estimatedMinutesWatched = None
         self._percent = None
         self._percent_confidence = None
+        self._URL_edit = None
+        self._URL_watch = None
 
         # Privacy settings for uploaded video
         self.privacy_options = [
@@ -53,11 +55,16 @@ class VideoData(object):
             ( 17 ,"Sport"),
             ( 19 ,"Travel & Events"),
         ]
+
+        self.URL_edit_base = ("https://studio.youtube.com/video/","/edit")
+        self.URL_watch_base = "https://www.youtube.com/?v="
+
     def __str__(self):
-        info =  "Title: " + self._title +"\n"+\
+        return  "Title: " + self._title +"\n"+\
                 "Published: " + self._privacyStatus +"\n"+\
+                "Watch: " + self.URL_watch +"\n"+\
+                "Edit: " + self.URL_edit +"\n"+\
                 "File: " + self._file_path
-        return info
 
     @property
     def id(self):
@@ -151,7 +158,7 @@ class VideoData(object):
                 title=self.title,
                 description=self.description,
                 tags=self.tags,
-                categoryId=self.categoryId
+                categoryId=self.tags
             ),
             status=dict(
             privacyStatus=self.privacyStatus
@@ -230,4 +237,11 @@ class VideoData(object):
     def percent_confidence(self):
         return self._percent_confidence
 
+    @property
+    def URL_watch(self):
+        return self.URL_watch_base + str(self._video_id)
+
+    @property
+    def URL_edit(self):
+        return self.URL_edit_base[0] + str(self._video_id) + self.URL_edit_base[1]
 
