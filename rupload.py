@@ -83,6 +83,7 @@ class ReumableUpload():
 
         # Check for successful upload
         if 'id' in response:
+            self.print_progress("video" , 1)
             return response['id']
         else:
             print()
@@ -109,4 +110,6 @@ class ReumableUpload():
         print(round(done*100), end='', flush=True)
         dur=time.strftime("%H:%M:%S", time.gmtime(time.time() - self.start_time))
         print("% "+ dur, end='', flush=True)
+        if done == 1:
+            print("\n")
 

@@ -53,6 +53,11 @@ class VideoData(object):
             ( 17 ,"Sport"),
             ( 19 ,"Travel & Events"),
         ]
+    def __str__(self):
+        info =  "Title: " + self._title +"\n"+\
+                "Published: " + self._privacyStatus +"\n"+\
+                "File: " + self._file_path
+        return info
 
     @property
     def id(self):
@@ -146,7 +151,7 @@ class VideoData(object):
                 title=self.title,
                 description=self.description,
                 tags=self.tags,
-                categoryId=self.tags
+                categoryId=self.categoryId
             ),
             status=dict(
             privacyStatus=self.privacyStatus

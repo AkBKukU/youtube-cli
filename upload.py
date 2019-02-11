@@ -11,10 +11,12 @@ from videodata import VideoData
 
 video = VideoData()
 video.title = "test upload"
+video.privacyStatus = "unlisted"
 video.description = "test upload"
 video.file_path = "./camerchange.mov"
 video.categoryId = 28
 
+print(str(video))
 
 m = YTAnalytics.Metrics()
 
