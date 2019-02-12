@@ -8,6 +8,7 @@ import sys
 import time
 import webbrowser
 import threading
+import json
 
 from apiclient.errors import HttpError
 
@@ -34,12 +35,40 @@ class ReumableUpload():
 
     def upload_video(self,video,insert_request):
         self.name = video.title
-        self.resumable_upload(insert_request)
+        response = self.resumable_upload(insert_request, "video")
+
+        # Check for successful upload
+        if 'id' in response:
+            self.print_progress("video" , 1)
+            video.video_id=response['id']
+            return response
+        else:
+            print()
+            print("The upload failed with an unexpected response: %s" % response)
+            print()
+
+            return
+
+    def upload_video_test(self,video,insert_request):
+        with open('./response.json', 'r') as f:
+            response = json.load(f)
+
+            # Check for successful upload
+            if 'id' in response:
+                video.video_id=response['id']
+                return video
+            else:
+                print()
+                print("The upload failed with an unexpected response: %s" % response)
+                print()
+
+                return
+
 
 
     # This method implements an exponential backoff strategy to resume a
     # failed upload
-    def resumable_upload(self,insert_request):
+    def resumable_upload(self,insert_request, name):
         response = None
         error = None
         retry = 0
@@ -53,7 +82,7 @@ class ReumableUpload():
                 # Use status for progress
                 if status:
                     # MediaFileUpload chunksize determines the frequency of this
-                    self.print_progress("video" , status.progress())
+                    self.print_progress(name , status.progress())
             except HttpError as e:
                 if e.resp.status in self.RETRIABLE_STATUS_CODES:
                     error = "A retriable HTTP error %d occurred:\n%s" \
@@ -81,17 +110,11 @@ class ReumableUpload():
                 sleep_seconds = random.random() * max_sleep
                 time.sleep(sleep_seconds)
 
-        # Check for successful upload
-        if 'id' in response:
-            self.print_progress("video" , 1)
-            video.video_id=response['id']
-            return response['id']
-        else:
-            print()
-            print("The upload failed with an unexpected response: %s" % response)
-            print()
+            # Record test response
+            #with open('./response.json', 'w') as f:
+            #    json.dump(response, f, sort_keys=True)
 
-            return
+            return response
 
 
     def print_progress(self,name, done):

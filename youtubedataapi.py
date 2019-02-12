@@ -80,7 +80,7 @@ class YTData(GoogleAPIBase):
             )
         )
         rupload = ReumableUpload()
-        rupload.upload_video(video,insert_request)
+        return rupload.upload_video(video,insert_request)
 
 
 
