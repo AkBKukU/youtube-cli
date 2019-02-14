@@ -13,8 +13,8 @@ video = VideoData()
 video.title = "test upload"
 video.privacyStatus = "unlisted"
 video.description = "test upload"
-video.file_path = "./camerchange.mov"
-video.thumbnail_path = "./thumbnail.png"
+video.file_path = "./test/camerchange.mov"
+video.thumbnail_path = "./test/thumbnail.png"
 video.categoryId = 28
 video.tags = ["test","tags","Does this work?"]
 

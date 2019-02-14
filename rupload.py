@@ -50,7 +50,7 @@ class ReumableUpload():
             return
 
     def upload_video_test(self,video):
-        with open('./response.json', 'r') as f:
+        with open('test/response.json', 'r') as f:
             response = json.load(f)
 
             # Check for successful upload
