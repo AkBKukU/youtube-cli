@@ -9,6 +9,8 @@ from youtubedataapi import YTData
 from apikey import GoogleAPIKey
 from videodata import VideoData
 
+channel_id = ""
+
 video = VideoData()
 video.title = "test upload"
 video.privacyStatus = "unlisted"
@@ -18,28 +20,30 @@ video.thumbnail_path = "./test/thumbnail.png"
 video.categoryId = 28
 video.tags = ["test","tags","Does this work?"]
 
+video.json_path = "video_save.json"
+video.json_read()
+
 print(str(video))
 
-m = YTAnalytics.Metrics()
-
 # Setup APIs
-api = GoogleAPIKey()
+api = GoogleAPIKey("test/client_secret.json")
 ytd = YTData()
-ytd.set_client(api.get_client_id(), api.get_client_secret())
-ytd.set_channel_id(api.channel_id)
+ytd.set_client(api)
+ytd.set_channel_id(channel_id)
 
 yta = YTAnalytics()
-yta.set_client(api.get_client_id(), api.get_client_secret())
-yta.set_channel_id(api.channel_id)
+yta.set_client(api)
+yta.set_channel_id(channel_id)
 
 # Connect APIs
 ytd.connect()
 yta.connect()
 
 
-# Get all videos
-video = ytd.video_upload_test(video)
+# upload
+ytd.video_upload(video)
 ytd.video_thumbnail_upload(video)
+
 
 print(video)
 

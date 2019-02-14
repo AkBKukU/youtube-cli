@@ -34,9 +34,9 @@ class GoogleAPIBase():
     credentials = None
     scopes = []
 
-    def set_client(self, client_id, client_secret):
-        GoogleAPIBase.client_id = client_id
-        GoogleAPIBase.client_secret = client_secret
+    def set_client(self, apikey):
+        GoogleAPIBase.client_id = apikey.client_id
+        GoogleAPIBase.client_secret = apikey.client_secret
 
     def set_api(self, name, version):
         self.api_name = name

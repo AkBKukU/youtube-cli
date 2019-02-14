@@ -1,11 +1,41 @@
 #!/usr/bin/python
+from jsonify import JSONify
 
-
-class VideoData(object):
+class VideoData(JSONify):
 
     percent_confidence_limit = 25
 
-    def __init__(self):
+    # Privacy settings for uploaded video
+    privacy_options = [
+        ("public", "Everyone can see the video"),
+        ("private", "Only you can see the video"),
+        ("unlisted", "Anyone can see the video with the link"),
+    ]
+
+    category_options = [
+        ( 2 ,"Cars & Vehicles"),
+        ( 23 ,"Comedy"),
+        ( 27 ,"Education"),
+        ( 24 ,"Entertainment"),
+        ( 1 ,"Film & Animation"),
+        ( 20 ,"Gaming"),
+        ( 26 ,"How-to & Style"),
+        ( 10 ,"Music"),
+        ( 25 ,"News & Politics"),
+        ( 29 ,"Non-profits & Activism"),
+        ( 22 ,"People & Blogs"),
+        ( 15 ,"Pets & Animals"),
+        ( 28 ,"Science & Technology"),
+        ( 17 ,"Sport"),
+        ( 19 ,"Travel & Events"),
+    ]
+
+    URL_edit_base = ("https://studio.youtube.com/video/","/edit")
+    URL_watch_base = "https://www.youtube.com/?v="
+
+
+    def __init__(self,json_path=None):
+        super(VideoData, self).__init__(json_path)
         # Standard Data
         self._video_id = None
         self._title = None
@@ -18,7 +48,11 @@ class VideoData(object):
         # Local Data
         self._file_path= None
         self._thumbnail_path= None
+
+        # Virtual Feilds
         self._body= None
+        self._URL_edit = None
+        self._URL_watch = None
 
         # Metrics
         self._date_start = None
@@ -29,40 +63,11 @@ class VideoData(object):
         self._estimatedMinutesWatched = None
         self._percent = None
         self._percent_confidence = None
-        self._URL_edit = None
-        self._URL_watch = None
 
-        # Privacy settings for uploaded video
-        self.privacy_options = [
-            ("public", "Everyone can see the video"),
-            ("private", "Only you can see the video"),
-            ("unlisted", "Anyone can see the video with the link"),
-        ]
-
-        self.category_options = [
-            ( 2 ,"Cars & Vehicles"),
-            ( 23 ,"Comedy"),
-            ( 27 ,"Education"),
-            ( 24 ,"Entertainment"),
-            ( 1 ,"Film & Animation"),
-            ( 20 ,"Gaming"),
-            ( 26 ,"How-to & Style"),
-            ( 10 ,"Music"),
-            ( 25 ,"News & Politics"),
-            ( 29 ,"Non-profits & Activism"),
-            ( 22 ,"People & Blogs"),
-            ( 15 ,"Pets & Animals"),
-            ( 28 ,"Science & Technology"),
-            ( 17 ,"Sport"),
-            ( 19 ,"Travel & Events"),
-        ]
-
-        self.URL_edit_base = ("https://studio.youtube.com/video/","/edit")
-        self.URL_watch_base = "https://www.youtube.com/?v="
 
     def __str__(self):
         return  "Title: " + self._title +"\n"+\
-                "Published: " + self._privacyStatus +"\n"+\
+                "Privacy: " + self._privacyStatus +"\n"+\
                 "Watch: " + self.URL_watch +"\n"+\
                 "Edit: " + self.URL_edit +"\n"+\
                 "File: " + self._file_path
