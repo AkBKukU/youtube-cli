@@ -88,4 +88,11 @@ class YTData(GoogleAPIBase):
         rupload = ReumableUpload()
         return rupload.upload_video(video,insert_request)
 
+    def video_thumbnail_upload(self,video):
+        self.service.thumbnails().set(
+            videoId=video.id,
+            media_body=video.thumbnail_path
+        ).execute()
+        return
+
 

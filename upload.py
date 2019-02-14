@@ -14,6 +14,7 @@ video.title = "test upload"
 video.privacyStatus = "unlisted"
 video.description = "test upload"
 video.file_path = "./camerchange.mov"
+video.thumbnail_path = "./thumbnail.png"
 video.categoryId = 28
 video.tags = ["test","tags","Does this work?"]
 
@@ -38,6 +39,7 @@ yta.connect()
 
 # Get all videos
 video = ytd.video_upload_test(video)
+ytd.video_thumbnail_upload(video)
 
 print(video)
 

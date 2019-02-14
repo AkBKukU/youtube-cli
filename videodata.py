@@ -17,6 +17,7 @@ class VideoData(object):
 
         # Local Data
         self._file_path= None
+        self._thumbnail_path= None
         self._body= None
 
         # Metrics
@@ -150,6 +151,17 @@ class VideoData(object):
         f = open(value)
         f.close()
         self._file_path = value
+
+    @property
+    def thumbnail_path(self):
+        return self._thumbnail_path
+
+    @thumbnail_path.setter
+    def thumbnail_path(self, value):
+        # File not found check will raise FileNotFoundError
+        f = open(value)
+        f.close()
+        self._thumbnail_path = value
 
     @property
     def body(self):
