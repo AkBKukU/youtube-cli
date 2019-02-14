@@ -158,7 +158,7 @@ class VideoData(object):
                 title=self.title,
                 description=self.description,
                 tags=self.tags,
-                categoryId=self.tags
+                categoryId=self.categoryId
             ),
             status=dict(
             privacyStatus=self.privacyStatus
@@ -239,9 +239,9 @@ class VideoData(object):
 
     @property
     def URL_watch(self):
-        return self.URL_watch_base + str(self._video_id)
+        return self.URL_watch_base + str(self.id)
 
     @property
     def URL_edit(self):
-        return self.URL_edit_base[0] + str(self._video_id) + self.URL_edit_base[1]
+        return self.URL_edit_base[0] + str(self.id) + self.URL_edit_base[1]
 

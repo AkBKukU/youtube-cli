@@ -15,6 +15,7 @@ video.privacyStatus = "unlisted"
 video.description = "test upload"
 video.file_path = "./camerchange.mov"
 video.categoryId = 28
+video.tags = ["test","tags","Does this work?"]
 
 print(str(video))
 
@@ -34,10 +35,11 @@ yta.set_channel_id(api.channel_id)
 ytd.connect()
 yta.connect()
 
+
 # Get all videos
-video = ytd.video_upload(video)
+video = ytd.video_upload_test(video)
 
-#pprint(video)
+print(video)
 
-print(str(video))
+pprint(vars(video))
 

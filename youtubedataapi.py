@@ -68,6 +68,12 @@ class YTData(GoogleAPIBase):
 
         return videos
 
+    # Upload test function because the quota usage is crazy high while testing
+    def video_upload_test(self,video):
+        print("Not Uploading: " + video.file_path)
+        rupload = ReumableUpload()
+        return rupload.upload_video_test(video)
+
     def video_upload(self,video):
         print("Uploading: " + video.file_path)
         insert_request = self.service.videos().insert(
@@ -81,6 +87,5 @@ class YTData(GoogleAPIBase):
         )
         rupload = ReumableUpload()
         return rupload.upload_video(video,insert_request)
-
 
 

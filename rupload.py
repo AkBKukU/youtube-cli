@@ -40,7 +40,7 @@ class ReumableUpload():
         # Check for successful upload
         if 'id' in response:
             self.print_progress("video" , 1)
-            video.video_id=response['id']
+            video.id=response['id']
             return response
         else:
             print()
@@ -49,13 +49,13 @@ class ReumableUpload():
 
             return
 
-    def upload_video_test(self,video,insert_request):
+    def upload_video_test(self,video):
         with open('./response.json', 'r') as f:
             response = json.load(f)
 
             # Check for successful upload
             if 'id' in response:
-                video.video_id=response['id']
+                video.id=response['id']
                 return video
             else:
                 print()
@@ -103,7 +103,7 @@ class ReumableUpload():
                     print()
                     print("Out of retries")
                     print()
-                    return
+                    return response
 
                 # Wait semi-random time before retrying upload
                 max_sleep = 2 ** retry
@@ -114,7 +114,7 @@ class ReumableUpload():
             #with open('./response.json', 'w') as f:
             #    json.dump(response, f, sort_keys=True)
 
-            return response
+        return response
 
 
     def print_progress(self,name, done):
