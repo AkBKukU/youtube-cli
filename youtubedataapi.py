@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-
 from googleapi import GoogleAPIBase
 from videodata import VideoData
 from rupload import ReumableUpload
@@ -10,10 +9,16 @@ import math
 from apiclient.http import MediaFileUpload
 
 class YTData(GoogleAPIBase):
+    """Interface for the Youtube Data service
+
+    Used for retrieving basic video info and uploading videos.
+    """
+
 
     channel_id = None
 
     def __init__(self):
+        """Sets up API access information"""
         self.set_api("youtube", "v3")
         self.add_scope("https://www.googleapis.com/auth/youtube.force-ssl")
         self.add_scope("https://www.googleapis.com/auth/youtube.upload")
@@ -21,9 +26,11 @@ class YTData(GoogleAPIBase):
         self.add_scope("https://www.googleapis.com/auth/youtubepartner")
 
     def set_channel_id(self, channel_id):
+        """Set Youtube channel ID"""
         self.channel_id = channel_id
 
     def get_video_list(self, limit=0):
+        """Get a list of all videos on the channel up to a limit"""
         max_loops = 50
         max_results = 50
         if limit:
@@ -35,6 +42,7 @@ class YTData(GoogleAPIBase):
         timestamp = str(datetime.utcnow().replace(microsecond=0).isoformat()) \
             + "Z"
 
+        # Get videos from API until the limit has been reached
         while not end_of_videos:
             result_limit = max_results if not max_loops else 50
             result = self.service.search().list(
@@ -68,13 +76,14 @@ class YTData(GoogleAPIBase):
 
         return videos
 
-    # Upload test function because the quota usage is crazy high while testing
     def video_upload_test(self,video):
+        """Upload test function because the quota usage is crazy high while testing"""
         print("Not Uploading: " + video.file_path)
         rupload = ReumableUpload()
         return rupload.upload_video_test(video)
 
     def video_upload(self,video):
+        """Upload video to Youtube"""
         print("Uploading: " + video.file_path)
         insert_request = self.service.videos().insert(
             part=",".join(list(video.body.keys())),
@@ -89,6 +98,7 @@ class YTData(GoogleAPIBase):
         return rupload.upload_video(video,insert_request)
 
     def video_thumbnail_upload(self,video):
+        """Upload video thumbnail"""
         self.service.thumbnails().set(
             videoId=video.id,
             media_body=video.thumbnail_path

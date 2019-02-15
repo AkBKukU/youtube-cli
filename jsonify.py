@@ -2,8 +2,13 @@
 import json
 
 class JSONify(object):
+    """Base class for save and loading class data using JSON files
+
+    Any attributtes added to a subclass will be included in the JSON file.
+    """
 
     def __init__(self,json_path=None):
+        """Init with file path"""
 
         self._json_path = None
 
@@ -13,7 +18,7 @@ class JSONify(object):
 
 
     def json_write(self, file_path=None):
-
+        """Write all class attributtes to JSON file"""
         if file_path is None:
             file_path = self.json_path
 
@@ -22,7 +27,7 @@ class JSONify(object):
 
 
     def json_read(self, file_path=None):
-
+        """Read data from JSON file and add it as attributtes to self"""
         if file_path is None:
             file_path = self.json_path
 

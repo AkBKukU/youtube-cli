@@ -1,12 +1,17 @@
 #!/usr/bin/python3
-
-
-
 from jsonify import JSONify
 
 class GoogleAPIKey(JSONify):
+    """Wrapper interface for handling API key
+
+    Get an API key from: https://support.google.com/googleapi/answer/6158862
+
+    You can download a JSON file with your client_id and client_secret to load
+    with this class.
+    """
 
     def __init__(self,json_path):
+        """Initialize and load key from JSON if provided"""
         super(GoogleAPIKey, self).__init__(json_path)
         self._client_id = ""
         self._client_secret = ""

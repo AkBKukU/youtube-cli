@@ -13,6 +13,13 @@ import json
 from apiclient.errors import HttpError
 
 class ReumableUpload():
+    """Safe uploading of files
+
+    Upload files with tolerance of poor network connections. Also prints upload
+    progress and time.
+
+    Derived from: https://developers.google.com/youtube/v3/guides/uploading_a_video
+    """
 
     # Explicitly tell the underlying HTTP transport library not to retry, since
     # we are handling retry logic ourselves.
@@ -34,6 +41,7 @@ class ReumableUpload():
     RETRIABLE_STATUS_CODES = [500, 502, 503, 504]
 
     def upload_video(self,video,insert_request):
+        """Begin upload of video and update returned ID if succesful"""
         self.name = video.title
         response = self.resumable_upload(insert_request, "video")
 
@@ -50,6 +58,7 @@ class ReumableUpload():
             return
 
     def upload_video_test(self,video):
+        """Fake an upload for testing purposes. Returns example data from JSON"""
         with open('test/response.json', 'r') as f:
             response = json.load(f)
 
@@ -69,6 +78,11 @@ class ReumableUpload():
     # This method implements an exponential backoff strategy to resume a
     # failed upload
     def resumable_upload(self,insert_request, name):
+        """Chunk based upload with connection problem tolerance
+
+        Derived from: https://developers.google.com/youtube/v3/guides/uploading_a_video
+        """
+
         response = None
         error = None
         retry = 0
@@ -118,6 +132,7 @@ class ReumableUpload():
 
 
     def print_progress(self,name, done):
+        """Progress bar for uploads"""
         width = os.get_terminal_size().columns
         start = "Uploading: " + self.name + " ["
         end = "] 100% 00:00:00 "

@@ -2,6 +2,12 @@
 from jsonify import JSONify
 
 class VideoData(JSONify):
+    """Video data class for representing videos locally
+
+    Video attributtes can be set or loaded from a JSON file. A video file and
+    thumbnail path can also be specified if you are uploading or modifying a
+    video.
+    """
 
     percent_confidence_limit = 25
 
@@ -35,6 +41,7 @@ class VideoData(JSONify):
 
 
     def __init__(self,json_path=None):
+        """Initialize and load video info from JSON if provided"""
         super(VideoData, self).__init__(json_path)
         # Standard Data
         self._video_id = None
@@ -55,6 +62,7 @@ class VideoData(JSONify):
         self._URL_watch = None
 
         # Metrics
+        # TODO - Make a seperate analytics object to attach to video objects
         self._date_start = None
         self._date_end = None
         self._views = None
@@ -66,6 +74,7 @@ class VideoData(JSONify):
 
 
     def __str__(self):
+        """Basic info about video"""
         return  "Title: " + self._title +"\n"+\
                 "Privacy: " + self._privacyStatus +"\n"+\
                 "Watch: " + self.URL_watch +"\n"+\
