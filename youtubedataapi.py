@@ -5,6 +5,7 @@ from rupload import ReumableUpload
 
 from datetime import *
 import math
+from pprint import *
 
 from apiclient.http import MediaFileUpload
 
@@ -79,6 +80,7 @@ class YTData(GoogleAPIBase):
     def video_upload_test(self,video):
         """Upload test function because the quota usage is crazy high while testing"""
         print("Not Uploading: " + video.file_path)
+        print(video)
         rupload = ReumableUpload()
         return rupload.upload_video_test(video)
 

@@ -39,6 +39,41 @@ class VideoData(JSONify):
     URL_edit_base = ("https://studio.youtube.com/video/","/edit")
     URL_watch_base = "https://www.youtube.com/?v="
 
+    def add_args(parser):
+        """Add options for creating a video object using parameters with argparse"""
+        # attributtes
+        parser.add_argument('--video-id', '-i', action="store", help='Video watch ID')
+        parser.add_argument('--video-title', '-t', action="store", help='Video title')
+        parser.add_argument('--video-description', '-d', action="store", help='Video description')
+        parser.add_argument('--video-privacy', '-p', action="store", help='Video privacy status',choices=["private","unlisted","public"],default="unlisted")
+        parser.add_argument('--video-category', '-c', action="store", help='Video category (by ID)',default=28,type=int)
+        parser.add_argument('--video-tags', '-a', action="store", nargs='+', help='Video tags (space seperated list)')
+        parser.add_argument('--video-file', '-f', action="store", help='Video file path')
+        parser.add_argument('--video-thumbnail-file', '-u', action="store", help='Video thumbnail file path')
+
+        # actions
+        parser.add_argument('--video-json-file', '-l', action="store", help='Read JSON file for video data')
+        return parser
+
+    def parse_args(self,args):
+        """Read options form parsearg to fill in video object attributtes"""
+        #self.json_path = None
+        if args.video_json_file is not None:
+            self.json_path = args.video_json_file
+            self.json_read()
+
+        if args.video_file is not None:
+            self.file_path = args.video_file
+        if args.video_thumbnail_file is not None:
+            self.thumbnail_path = args.video_thumbnail_file
+
+        self.id = args.video_id
+        self.title = args.video_title
+        self.privacyStatus = args.video_privacy
+        self.description = args.video_description
+        self.categoryId = args.video_category
+        self.tags = args.video_tags
+
 
     def __init__(self,json_path=None):
         """Initialize and load video info from JSON if provided"""
