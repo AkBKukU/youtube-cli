@@ -25,7 +25,7 @@ def video_build(args):
 
 def video_upload(video):
     # Setup APIs
-    api = GoogleAPIKey("test/client_secret.json")
+    api = GoogleAPIKey("client_secret.json")
     ytd = YTData()
     ytd.set_client(api)
 
@@ -35,7 +35,6 @@ def video_upload(video):
     # Connect APIs
     ytd.connect()
     yta.connect()
-
 
     # upload
     ytd.video_upload(video)

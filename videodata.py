@@ -200,6 +200,8 @@ class VideoData(JSONify):
         f = open(value)
         f.close()
         self._file_path = value
+        if self.title is None:
+            self.title - value
 
     @property
     def thumbnail_path(self):
