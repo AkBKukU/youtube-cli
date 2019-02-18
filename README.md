@@ -53,6 +53,8 @@ To supply all the video data that is accepted by loading a JSON file
 as well, load it by using the `-l` parameter. A VideoData object will be filled
 in from that.
 
+You can use both a JSON and parameters. The JSON is loaded first and any passed
+parameters will overwrite the loaded JSON data.
 
 ## Code Usage
 The code is based around using VideoData objects. They represent all the metadata
