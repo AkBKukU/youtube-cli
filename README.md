@@ -33,7 +33,7 @@ with obfuscated keys. Not something I'm wanting to do.
 
 
 ## Setting up the API keys.
-Once you have a `client_id` and `client_secret` you can  download the json from
+Once you have a `client_id` and `client_secret` you can  download the JSON from
 google saving it as `client_secret.json` in the same directory as the code and
 it will be loaded automatically during initialization if you use the example
 script. If you want to modify the code you can add the `client_id` and
@@ -44,13 +44,14 @@ script. If you want to modify the code you can add the `client_id` and
 ## Script Usage for Uploading
 `upload.py` can upload videos to Youtube. It is a fairly simple file because all
 of the real functionality is in all the supporting files. You can set video
-information either over parameters. You can run `./upload.py -h` to see the
+information either over parameters or JSON. You can run `./upload.py -h` to see the
 parameters you can pass. Everything accepts qouted strings except category.
 That is set with integer numbers(look in `videodata.py` for what numbers are
 used). Tags are also able to be set with multiple arguments.
 
-You can also supply all the video data that is accepted by loading a JSON file
-as well. You can load it by using the `-l` parameter.
+To supply all the video data that is accepted by loading a JSON file
+as well, load it by using the `-l` parameter. A VideoData object will be filled
+in from that.
 
 
 ## Code Usage
