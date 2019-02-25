@@ -13,8 +13,15 @@ class GoogleAPIKey(JSONify):
     def __init__(self,json_path):
         """Initialize and load key from JSON if provided"""
         super(GoogleAPIKey, self).__init__(json_path)
-        self._client_id = ""
-        self._client_secret = ""
+        if hasattr(self, 'installed'):
+            self._client_id = self.installed["client_id"]
+            self._client_secret = self.installed["client_secret"]
+        else:
+            self._client_id = ""
+            self._client_secret = ""
+        print("key object")
+        print("client_id: " + self.client_id + "\n" \
+                "client_secret: " + self.client_secret + "\n")
 
     @property
     def client_id(self):

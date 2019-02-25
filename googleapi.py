@@ -39,6 +39,11 @@ class GoogleAPIBase():
     credentials = None
     scopes = []
 
+    def __init__(self,apikey=None):
+        """Set client_id and client_secret from a GoogleAPIKey object"""
+        if apikey is not None:
+            self.set_client(apikey)
+
     def set_client(self, apikey):
         """Set client_id and client_secret from a GoogleAPIKey object"""
         GoogleAPIBase.client_id = apikey.client_id
