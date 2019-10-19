@@ -45,5 +45,3 @@ class JSONify(object):
     def json_path(self, value):
         self._json_path = value
 
-
-
