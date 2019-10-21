@@ -5,5 +5,6 @@
 #-p unlisted \
 #-f "test/ten.mp4"
 
-./upload.py --video-json-file test/video.json
+./upload.py --video-json-file test/video.json -t "Changed my mind"
+
 

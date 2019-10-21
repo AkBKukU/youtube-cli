@@ -20,8 +20,6 @@ def getargs():
 def video_build(args):
     video = VideoData()
     video.parse_args(args)
-    if video.json_path is not None:
-        video.json_read()
     return video
 
 
@@ -46,5 +44,6 @@ def video_upload(video):
 
 if __name__ == '__main__':
     print("File run")
-    video_upload(video_build(getargs()))
+    print(video_build(getargs()))
+    #video_upload(video_build(getargs()))
 
