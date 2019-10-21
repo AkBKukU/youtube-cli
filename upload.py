@@ -20,6 +20,8 @@ def getargs():
 def video_build(args):
     video = VideoData()
     video.parse_args(args)
+    if video.json_path is not None:
+        video.json_read()
     return video
 
 

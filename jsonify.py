@@ -34,6 +34,7 @@ class JSONify(object):
         with open(file_path, 'r') as f:
             data = json.load(f)
             for attr, value in data.items():
+                print("Setting \"" + str(attr) + "\" to :" + str(value))
                 setattr(self,attr, value)
 
 

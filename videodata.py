@@ -110,11 +110,11 @@ class VideoData(JSONify):
 
     def __str__(self):
         """Basic info about video"""
-        return  "Title: " + self._title +"\n"+\
-                "Privacy: " + self._privacyStatus +"\n"+\
-                "Watch: " + self.URL_watch +"\n"+\
-                "Edit: " + self.URL_edit +"\n"+\
-                "File: " + self._file_path
+        return  "Title: " + str(self._title) +"\n"+\
+                "Privacy: " + str(self._privacyStatus) +"\n"+\
+                "Watch: " + str(self.URL_watch) +"\n"+\
+                "Edit: " + str(self.URL_edit) +"\n"+\
+                "File: " + str(self._file_path)
 
     @property
     def id(self):
@@ -138,7 +138,7 @@ class VideoData(JSONify):
 
     @description.setter
     def description(self, value):
-        self._descrioption = value
+        self._description = value
 
     @property
     def published(self):
@@ -180,13 +180,13 @@ class VideoData(JSONify):
     def categoryId(self, value):
         found=False
         for cat in self.category_options:
-            if cat[0] == value:
+            if cat[0] == int(value):
                 found = True
                 break
 
         if not found:
             raise ValueError('Invalid category ID', value)
-        self._categoryId= value
+        self._categoryId=int(value)
 
 
 
@@ -210,6 +210,8 @@ class VideoData(JSONify):
     @thumbnail_path.setter
     def thumbnail_path(self, value):
         # File not found check will raise FileNotFoundError
+        if value == "":
+            return
         f = open(value)
         f.close()
         self._thumbnail_path = value

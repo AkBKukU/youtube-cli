@@ -1,0 +1,11 @@
+{
+	"title" : "10 != 20",
+	"description" : "Reading is hard",
+	"privacystatus" : "unlisted",
+	"tags" : ["literature","reading","fail"],
+	"categoryId" : "23",
+
+	"file_path" : "test/ten.mp4",
+	"thumbnail_path" : ""
+}
+
