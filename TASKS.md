@@ -1,10 +1,6 @@
 # TODO Items for YT-CLI
 
-## Major
-
-Larger scale projects
-
-### JSONify Data Map
+## JSONify Data Map
 Allow loading data from differently formatted sources by providing a list of 
 tuples for mapping for class fields. Writing to different formats is not 
 currently an object but may be done in the future. For now assume that classes
@@ -23,5 +19,18 @@ method `json_read_all` and the data map code should be put in a new method
 
 
 
+## ContentID Classes
+Needed to enbale monetization on videos. 
 
+[API documentation](https://developers.google.com/youtube/partner)
+
+[Full Monetization Example](https://developers.google.com/youtube/partner/upload_claim_sample)
+
+### Demonetization Detection
+Behold! The [correct way](https://developers.google.com/youtube/partner/docs/v1/claims#status) to detect video demonetization!
+
+### Monetization Theory
+You have to file a `claim` against your own video for 100% of the content on it. You need to set it up so the `claim` is being made by the correct "content owner" being the authenticated account to ensure you get your own monetization. Finally you must apply a `policy` that enables monetization on it.
+
+Think about it like getting other ContentID claims. They claim a portion of the video, set it to be owned by them, and then decided whether or not to monetize that portion. You're essentially following the same procedure to monetize your own video.
 
