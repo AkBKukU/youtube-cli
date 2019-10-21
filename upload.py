@@ -44,6 +44,6 @@ def video_upload(video):
 
 if __name__ == '__main__':
     print("File run")
-    print(video_build(getargs()))
-    #video_upload(video_build(getargs()))
+    #print(video_build(getargs()))
+    video_upload(video_build(getargs()))
 
