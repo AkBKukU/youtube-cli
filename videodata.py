@@ -67,12 +67,18 @@ class VideoData(JSONify):
         if args.video_thumbnail_file is not None:
             self.thumbnail_path = args.video_thumbnail_file
 
-        self.id = args.video_id
-        self.title = args.video_title
-        self.privacyStatus = args.video_privacy
-        self.description = args.video_description
-        self.categoryId = args.video_category
-        self.tags = args.video_tags
+        if args.video_id is not None:
+            self.id = args.video_id
+        if args.video_title is not None:
+            self.title = args.video_title
+        if args.video_privacy is not None:
+            self.privacyStatus = args.video_privacy
+        if args.video_description is not None:
+            self.description = args.video_description
+        if args.video_category is not None:
+            self.categoryId = args.video_category
+        if args.video_tags is not None:
+            self.tags = args.video_tags
 
 
     def __init__(self,json_path=None):
