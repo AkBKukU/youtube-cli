@@ -11,6 +11,7 @@ import threading
 import json
 
 from apiclient.errors import HttpError
+from util import Util
 
 class ReumableUpload():
     """Safe uploading of files
@@ -47,7 +48,6 @@ class ReumableUpload():
 
         # Check for successful upload
         if 'id' in response:
-            self.print_progress("video" , 1)
             video.id=response['id']
             return response
         else:
@@ -87,6 +87,7 @@ class ReumableUpload():
         error = None
         retry = 0
         self.start_time = time.time()
+        util = Util()
 
         # Upload file until response is received
         while response is None:
@@ -96,7 +97,7 @@ class ReumableUpload():
                 # Use status for progress
                 if status:
                     # MediaFileUpload chunksize determines the frequency of this
-                    self.print_progress(name , status.progress())
+                    util.progress_bar("Uploading: " + name ,self.start_time, status.progress())
             except HttpError as e:
                 if e.resp.status in self.RETRIABLE_STATUS_CODES:
                     error = "A retriable HTTP error %d occurred:\n%s" \
@@ -128,27 +129,7 @@ class ReumableUpload():
             #with open('./response.json', 'w') as f:
             #    json.dump(response, f, sort_keys=True)
 
+        util.progress_bar("Uploading: " + name ,self.start_time, 1)
         return response
 
-
-    def print_progress(self,name, done):
-        """Progress bar for uploads"""
-        width = os.get_terminal_size().columns
-        start = "Uploading: " + self.name + " ["
-        end = "] 100% 00:00:00 "
-        fluff = len(start) + len(end)
-
-        bar = round(done*(width-fluff))
-        space = width-fluff-bar
-        print("\r" + start, end='', flush=True)
-        for j in range(bar):
-            print("=", end='', flush=True)
-        for j in range(space):
-            print(" ", end='', flush=True)
-        print("] ", end='', flush=True)
-        print(round(done*100), end='', flush=True)
-        dur=time.strftime("%H:%M:%S", time.gmtime(time.time() - self.start_time))
-        print("% "+ dur, end='', flush=True)
-        if done == 1:
-            print("\n")
 
