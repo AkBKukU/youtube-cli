@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-from jsonify import JSONify
+from youtubecli.jsonify import JSONify
 
 class GoogleAPIKey(JSONify):
     """Wrapper interface for handling API key

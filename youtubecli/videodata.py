@@ -1,5 +1,5 @@
 #!/usr/bin/python
-from jsonify import JSONify
+from youtubecli.jsonify import JSONify
 
 class VideoData(JSONify):
     """Video data class for representing videos locally

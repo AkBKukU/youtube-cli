@@ -11,7 +11,7 @@ import threading
 import json
 
 from apiclient.errors import HttpError
-from util import Util
+from youtubecli.util import Util
 
 class ReumableUpload():
     """Safe uploading of files

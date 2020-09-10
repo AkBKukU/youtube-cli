@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-from googleapi import GoogleAPIBase
-from videodata import VideoData
-from rupload import ReumableUpload
+from youtubecli.googleapi import GoogleAPIBase
+from youtubecli.videodata import VideoData
+from youtubecli.rupload import ReumableUpload
 
 from datetime import *
 import math

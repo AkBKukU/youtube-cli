@@ -5,10 +5,10 @@ from datetime import *
 from pprint import *
 import argparse
 
-from youtubeanalyticsapi import YTAnalytics
-from youtubedataapi import YTData
-from apikey import GoogleAPIKey
-from videodata import VideoData
+from youtubecli.youtubeanalyticsapi import YTAnalytics
+from youtubecli.youtubedataapi import YTData
+from youtubecli.apikey import GoogleAPIKey
+from youtubecli.videodata import VideoData
 
 
 def getargs():

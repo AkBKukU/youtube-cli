@@ -3,8 +3,8 @@
 import types
 from pprint import pprint
 
-from googleapi import GoogleAPIBase
-from videodata import VideoData
+from youtubecli.googleapi import GoogleAPIBase
+from youtubecli.videodata import VideoData
 
 
 class YTAnalytics(GoogleAPIBase):
