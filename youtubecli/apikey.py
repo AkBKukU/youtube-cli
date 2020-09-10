@@ -19,9 +19,6 @@ class GoogleAPIKey(JSONify):
         else:
             self._client_id = ""
             self._client_secret = ""
-        print("key object")
-        print("client_id: " + self.client_id + "\n" \
-                "client_secret: " + self.client_secret + "\n")
 
     @property
     def client_id(self):
