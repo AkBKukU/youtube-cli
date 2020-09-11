@@ -42,43 +42,43 @@ class VideoData(JSONify):
     def add_args(parser):
         """Add options for creating a video object using parameters with argparse"""
         # attributtes
-        parser.add_argument('--video-id', '-i', action="store", help='Video watch ID')
-        parser.add_argument('--video-title', '-t', action="store", help='Video title')
-        parser.add_argument('--video-description', '-d', action="store", help='Video description')
-        parser.add_argument('--video-privacy', '-p', action="store", help='Video privacy status',choices=["private","unlisted","public"],default="unlisted")
-        parser.add_argument('--video-category', '-c', action="store", help='Video category (by ID)',default=28,type=int)
-        parser.add_argument('--video-tags', '-a', action="store", nargs='+', help='Video tags (space seperated list)')
-        parser.add_argument('--video-file', '-f', action="store", help='Video file path')
-        parser.add_argument('--video-thumbnail-file', '-u', action="store", help='Video thumbnail file path')
+        parser.add_argument('--id', '-i', action="store", help='Video watch ID')
+        parser.add_argument('--title', '-t', action="store", help='Video title')
+        parser.add_argument('--description', '-d', action="store", help='Video description')
+        parser.add_argument('--privacy', '-p', action="store", help='Video privacy status',choices=["private","unlisted","public"],default="unlisted")
+        parser.add_argument('--category', '-c', action="store", help='Video category (by ID)',default=28,type=int)
+        parser.add_argument('--tags', '-a', action="store", nargs='+', help='Video tags (space seperated list)')
+        parser.add_argument('--file', '-f', action="store", help='Video file path')
+        parser.add_argument('--thumbnail-file', '-u', action="store", help='Video thumbnail file path')
 
         # actions
-        parser.add_argument('--video-json-file', '-l', action="store", help='Read JSON file for video data')
+        parser.add_argument('--json-file', '-l', action="store", help='Read JSON file for video data')
         return parser
 
     def parse_args(self,args):
         """Read options form parsearg to fill in video object attributtes"""
         #self.json_path = None
-        if args.video_json_file is not None:
-            self.json_path = args.video_json_file
+        if args.json_file is not None:
+            self.json_path = args.json_file
             self.json_read()
 
-        if args.video_file is not None:
-            self.file_path = args.video_file
-        if args.video_thumbnail_file is not None:
-            self.thumbnail_path = args.video_thumbnail_file
+        if args.file is not None:
+            self.file_path = args.file
+        if args.thumbnail_file is not None:
+            self.thumbnail_path = args.thumbnail_file
 
-        if args.video_id is not None:
-            self.id = args.video_id
-        if args.video_title is not None:
-            self.title = args.video_title
-        if args.video_privacy is not None:
-            self.privacyStatus = args.video_privacy
-        if args.video_description is not None:
-            self.description = args.video_description
-        if args.video_category is not None:
-            self.categoryId = args.video_category
-        if args.video_tags is not None:
-            self.tags = args.video_tags
+        if args.id is not None:
+            self.id = args.id
+        if args.title is not None:
+            self.title = args.title
+        if args.privacy is not None:
+            self.privacyStatus = args.privacy
+        if args.description is not None:
+            self.description = args.description
+        if args.category is not None:
+            self.categoryId = args.category
+        if args.tags is not None:
+            self.tags = args.tags
 
 
     def __init__(self,json_path=None):

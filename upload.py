@@ -9,41 +9,36 @@ from youtubecli.youtubeanalyticsapi import YTAnalytics
 from youtubecli.youtubedataapi import YTData
 from youtubecli.apikey import GoogleAPIKey
 from youtubecli.videodata import VideoData
+from youtubecli.videoaction import VideoAction
 
 
 def getargs():
     parser = argparse.ArgumentParser(conflict_handler='resolve')
-    VideoData.add_args(parser)
+
+    # Add main action modes
+    parser.add_argument('mode',choices=["video"], nargs='?', default='video', help='Set mode to work in, defaults to video')
+    # Override help to allow for a dynamic help screen.
+    parser.add_argument('--help','-h', action='store_true',  help='Print this help screen')
+    # Determine mode and get args for it
+    args_mode,other=parser.parse_known_args()
+    if args_mode.mode=="video":
+        VideoAction.add_args(parser)
+
+    # If help run print that and exit with all args
+    if args_mode.help:
+        parser.print_help()
+        sys.exit()
+
     return parser.parse_args()
 
 
-def video_build(args):
-    video = VideoData()
-    video.parse_args(args)
-    return video
+def parse_args(args):
 
-
-def video_upload(video):
-    # Setup APIs
-    api = GoogleAPIKey("client_secrets.json")
-    ytd = YTData()
-    ytd.set_client(api)
-
-    yta = YTAnalytics()
-    yta.set_client(api)
-
-    # Connect APIs
-    ytd.connect()
-    yta.connect()
-
-    # upload
-    ytd.video_upload(video)
-    if video.thumbnail_path is not None:
-        ytd.video_thumbnail_upload(video)
+    if args.mode=="video":
+        VideoAction.parse_args(args)
 
 
 if __name__ == '__main__':
-    print("File run")
-    #print(video_build(getargs()))
-    video_upload(video_build(getargs()))
+    parse_args(getargs())
+    #video_upload(video_build(getargs()))
 
