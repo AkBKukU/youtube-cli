@@ -114,7 +114,7 @@ class ReumableUpload():
                 print()
                 error = None
                 retry += 1
-                if retry > MAX_RETRIES:
+                if retry > self.MAX_RETRIES:
                     print()
                     print("Out of retries")
                     print()
