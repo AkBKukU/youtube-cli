@@ -8,6 +8,7 @@ import argparse
 from youtubecli.youtubeanalyticsapi import YTAnalytics
 from youtubecli.youtubedataapi import YTData
 from youtubecli.apikey import GoogleAPIKey
+from youtubecli.googleapi import GoogleAPIBase
 from youtubecli.videodata import VideoData
 from youtubecli.videoaction import VideoAction
 
@@ -19,6 +20,11 @@ def getargs():
     parser.add_argument('mode',choices=["video"], nargs='?', default='video', help='Set mode to work in, defaults to video')
     # Override help to allow for a dynamic help screen.
     parser.add_argument('--help','-h', action='store_true',  help='Print this help screen')
+    
+    # Add required API args
+    GoogleAPIKey.add_args(parser)
+    GoogleAPIBase.add_args(parser)
+    
     # Determine mode and get args for it
     args_mode,other=parser.parse_known_args()
     if args_mode.mode=="video":
@@ -34,6 +40,9 @@ def getargs():
 
 def parse_args(args):
 
+    GoogleAPIKey.parse_args(args)
+    GoogleAPIBase.parse_args(args)
+    
     if args.mode=="video":
         VideoAction.parse_args(args)
 

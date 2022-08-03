@@ -43,6 +43,19 @@ class GoogleAPIBase():
         """Set client_id and client_secret from a GoogleAPIKey object"""
         if apikey is not None:
             self.set_client(apikey)
+            
+            
+    def add_args(parser):
+        """Add options for Oauth token storage using parameters with argparse"""
+        parser.add_argument('--token', '-k', action="store", help='Oauth login token location')
+        
+        return parser
+        
+    def parse_args(args):
+        """Read options form parsearg to fill in API object attributtes"""
+        
+        if args.token is not None:
+            GoogleAPIBase.storage_file = args.token
 
     def set_client(self, apikey):
         """Set client_id and client_secret from a GoogleAPIKey object"""
@@ -56,7 +69,7 @@ class GoogleAPIBase():
 
     def set_storage(self, storage):
         """Change token file path for storing authentication"""
-        self.storage_file = storage
+        GoogleAPIBase.storage_file = storage
 
     def add_scope(self, scope):
         """Add a scope to to the API connection
@@ -89,7 +102,7 @@ class GoogleAPIBase():
         )
 
         # Get user authentication storage
-        storage = Storage(self.storage_file)
+        storage = Storage(GoogleAPIBase.storage_file)
         GoogleAPIBase.credentials = storage.get()
 
         # Authenticate user credentials (launches web authentication)

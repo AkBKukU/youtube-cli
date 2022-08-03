@@ -32,7 +32,7 @@ class VideoAction(object):
 
     def upload(video):
         # Setup APIs
-        api = GoogleAPIKey("client_secrets.json")
+        api = GoogleAPIKey()
         ytd = YTData()
         ytd.set_client(api)
 
