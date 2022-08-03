@@ -36,10 +36,16 @@ with obfuscated keys. Not something I'm wanting to do.
 Once you have a `client_id` and `client_secret` you can  download the JSON from
 google saving it as `client_secret.json` in the same directory as the code and
 it will be loaded automatically during initialization if you use the example
-script. If you want to modify the code you can add the `client_id` and
-`client_secret` directly in the code by setting the `GoogleAPIKey` object's
-`client_id` and `client_secret` atributtes.
+script. You can also specify the location of your API key with the `--client`/`-s` 
+parameter and place it anywhere.
 
+## Login Management
+After logging in an Oauth token file is generated in the same directory if a path
+is not specified using using `--token`/`-k`. This is the stored login file that
+is used to reauthenticate without going through the web login again. You can
+store and swap different tokens to upload to different Youtube channels, evem
+brand managed accounts. The token can be transferred to another system to make
+authenticating headless systems easier.
 
 ## Script Usage for Uploading
 `yt.py` can upload videos to Youtube. It is a fairly simple file because all
